@@ -1,5 +1,4 @@
-import { VercelRequest, VercelResponse } from "@vercel/node";
-
+// Vercel Serverless Function handler (we keep types as any to avoid runtime/type deps)
 function isPaidStatus(status: unknown): boolean {
   const s = String(status ?? "").toUpperCase();
   return s === "PAID" || s === "CONFIRMED" || s === "COMPLETED" || s === "SUCCESS";
@@ -98,8 +97,8 @@ async function postToKlose(params: {
 }
 
 export default async function handler(
-  req: VercelRequest,
-  res: VercelResponse
+  req: any,
+  res: any
 ) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });

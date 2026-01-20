@@ -1,10 +1,8 @@
-import { VercelRequest, VercelResponse } from "@vercel/node";
-
 const THREEXPAY_URL = "https://gateway.3xpay.co";
 
 export default async function handler(
-  req: VercelRequest,
-  res: VercelResponse
+  req: any,
+  res: any
 ) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
