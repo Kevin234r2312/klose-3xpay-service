@@ -1,7 +1,13 @@
 // Vercel Serverless Function handler (we keep types as any to avoid runtime/type deps)
 function isPaidStatus(status: unknown): boolean {
   const s = String(status ?? "").toUpperCase();
-  return s === "PAID" || s === "CONFIRMED" || s === "COMPLETED" || s === "SUCCESS";
+  return (
+    s === "PAID" ||
+    s === "PIX_PAID" ||
+    s === "CONFIRMED" ||
+    s === "COMPLETED" ||
+    s === "SUCCESS"
+  );
 }
 
 function extractReferenceId(event: any): string | null {
@@ -33,10 +39,15 @@ function extractTransactionId(event: any): string | null {
 function extractStatus(event: any): string | null {
   const candidates = [
     event?.status,
+    event?.event,
+    event?.type,
+    event?.event_type,
     event?.payment_status,
     event?.transaction?.status,
     event?.data?.status,
     event?.data?.payment?.status,
+    event?.data?.event,
+    event?.data?.type,
   ].filter(Boolean);
   return candidates.length > 0 ? String(candidates[0]) : null;
 }
