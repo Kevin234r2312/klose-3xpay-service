@@ -45,6 +45,8 @@ function extractTransactionId(event: any): string | null {
 function extractStatus(event: any): string | null {
   const candidates = [
     event?.status,
+    event?.transactionStatus,
+    event?.transaction_status,
     event?.event,
     event?.type,
     event?.event_type,
