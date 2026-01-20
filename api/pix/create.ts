@@ -19,6 +19,10 @@ export default async function handler(
       });
     }
 
+    const callbackUrl =
+      process.env.THREEXPAY_CALLBACK_URL ||
+      "https://klose-3xpay-service.vercel.app/api/webhooks/3xpay";
+
     const response = await fetch(`${THREEXPAY_URL}/transaction/cash-in`, {
       method: "POST",
       headers: {
@@ -30,8 +34,7 @@ export default async function handler(
         transaction: {
           amount,
           external_id: referenceId,
-          callback_url:
-            "https://klose-3xpay-service.vercel.app/api/webhooks/3xpay",
+          callback_url: callbackUrl,
           expiration: 3600,
           custom_message: "PIX Klose",
           debtor: {
