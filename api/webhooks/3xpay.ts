@@ -14,11 +14,15 @@ function extractReferenceId(event: any): string | null {
   const candidates = [
     event?.referenceId,
     event?.reference_id,
+    event?.externalId,
     event?.external_id,
     event?.transaction?.external_id,
+    event?.transaction?.externalId,
     event?.data?.external_id,
     event?.data?.transaction?.external_id,
+    event?.data?.transaction?.externalId,
     event?.data?.payment?.external_id,
+    event?.data?.payment?.externalId,
   ].filter(Boolean);
   return candidates.length > 0 ? String(candidates[0]) : null;
 }
@@ -30,8 +34,10 @@ function extractTransactionId(event: any): string | null {
     event?.id,
     event?.transaction?.id,
     event?.data?.transaction_id,
+    event?.data?.transactionId,
     event?.data?.transaction?.id,
     event?.data?.payment?.transaction_id,
+    event?.data?.payment?.transactionId,
   ].filter(Boolean);
   return candidates.length > 0 ? String(candidates[0]) : null;
 }
